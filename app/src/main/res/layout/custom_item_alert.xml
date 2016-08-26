@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ingresar Personas"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edt_user_id"
+            android:layout_width="@dimen/dimen_length_width_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Ingrese id"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/edt_user_name"
+            android:layout_width="@dimen/dimen_length_width_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Ingrese nombre"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edt_user_last_name"
+            android:layout_width="@dimen/dimen_length_width_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Ingrese apellido"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edt_user_age"
+            android:layout_width="@dimen/dimen_length_width_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Ingrese edad"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <Button
+            android:textColor="@color/colorWithe"
+            android:background="@color/colorGreen"
+            android:id="@+id/btn_add_person"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ingresar" />
+
+
+    </LinearLayout>
+</LinearLayout>
