@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
             }
         });
 
