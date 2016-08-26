@@ -35,9 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_dialog_email"
+        android:src="@android:drawable/btn_star_big_on"
         app:layout_anchor="@id/recycler_view_list_person"
         app:layout_anchorGravity="bottom|right|end" />
+
+    <include layout="@layout/fab_layout" />
 
 
 </android.support.design.widget.CoordinatorLayout>
