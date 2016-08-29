@@ -20,9 +20,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sarango.exampleespresso.R;
+import com.example.sarango.exampleespresso.helpers.IValidatorInternet;
+import com.example.sarango.exampleespresso.helpers.ValidatorForFields;
+import com.example.sarango.exampleespresso.helpers.ValidatorInternet;
 import com.example.sarango.exampleespresso.model.Person;
 import com.example.sarango.exampleespresso.presenter.MainActivityPresenter;
 import com.example.sarango.exampleespresso.view.adapter.RVAdapterPerson;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
     Animation hide_fab_3;
 
     private boolean FAB_Status = true;
+    private ValidatorInternet validatorInternet;
 
 
     @Override
@@ -103,9 +107,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        validatorInternet = new ValidatorInternet(MainActivity.this);
 
-        presenter = new MainActivityPresenter(MainActivity.this, realm);
+
+        presenter = new MainActivityPresenter(MainActivity.this, realm, validatorInternet);
         presenter.validateDateInDB();
+        presenter.getVersionNumber();
     }
 
     private void initListeners() {
@@ -138,13 +145,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
                 }
 
                 FAB_Status = !FAB_Status;
-
-    /*            if (FAB_Status) {
-                    expandFAB();
-                } else {
-                    hideFAB();
-                }
-                FAB_Status = !FAB_Status;*/
             }
         });
 
@@ -247,6 +247,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityView,
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorRed));
         snackbar.show();
+    }
+
+    @Override
+    public void showApiVersion(final String string) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "version" + string, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

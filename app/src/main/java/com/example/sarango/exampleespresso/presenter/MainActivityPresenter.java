@@ -2,8 +2,11 @@ package com.example.sarango.exampleespresso.presenter;
 
 import android.view.View;
 
+import com.example.sarango.exampleespresso.helpers.IValidatorInternet;
 import com.example.sarango.exampleespresso.helpers.ValidatorForFields;
+import com.example.sarango.exampleespresso.helpers.ValidatorInternet;
 import com.example.sarango.exampleespresso.model.Person;
+import com.example.sarango.exampleespresso.repositorio.VersionRepoitory;
 import com.example.sarango.exampleespresso.view.interface_view.MainActivityView;
 
 import java.util.List;
@@ -17,10 +20,13 @@ import io.realm.RealmQuery;
 public class MainActivityPresenter {
     private MainActivityView mainActivityView;
     private Realm realm;
+    private VersionRepoitory versionRepoitory;
+    private IValidatorInternet iValidatorInternet;
 
-    public MainActivityPresenter(MainActivityView mainActivityView, Realm realm) {
+    public MainActivityPresenter(MainActivityView mainActivityView, Realm realm, ValidatorInternet validatorInternet) {
         this.mainActivityView = mainActivityView;
         this.realm = realm;
+        this.iValidatorInternet = validatorInternet;
     }
 
     public boolean validateFields(String edtIdPerson, String edtNamePerson, String edtLastNamePerson, String edtAgePerson, View mDialogView) {
@@ -76,5 +82,27 @@ public class MainActivityPresenter {
         Person result = realm.where(Person.class).equalTo("userID", id).findFirst();
         result.deleteFromRealm();
         realm.commitTransaction();
+    }
+
+    public void getVersionNumber() {
+
+        if (iValidatorInternet.isConnected()) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String versionApi;
+                    versionRepoitory = new VersionRepoitory();
+                    versionApi = versionRepoitory.getNumberVersionFromService();
+                    mainActivityView.showApiVersion(versionApi);
+
+                }
+            });
+
+            thread.start();
+        } else {
+            mainActivityView.showApiVersion("no esta conectado a internet");
+        }
+
+
     }
 }

@@ -21,5 +21,7 @@ public interface MainActivityView {
 
     void showSnackBar(View mDialogView);
 
+    void showApiVersion(String string);
+
 
 }
