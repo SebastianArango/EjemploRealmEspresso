@@ -1,11 +1,11 @@
 package com.example.sarango.exampleespresso.repositorio;
 
-import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
+import com.example.sarango.exampleespresso.model.RepositoryError;
 import com.example.sarango.exampleespresso.model.VersionModel;
-
-import java.io.IOException;
+import com.example.sarango.exampleespresso.service.Base;
+import com.example.sarango.exampleespresso.service.ServiceAdapter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +26,7 @@ public class VersionRepoitory extends Base<IVersion> {
         iVersion = getServiceAdapter().getInstance(IVersion.class);
     }
 
-    public String getNumberVersionFromService() {
+    public String getNumberVersionFromService() throws RepositoryError {
         Call<VersionModel> modelCall = iVersion.getVersionNumber();
         modelCall.enqueue(new Callback<VersionModel>() {
             @Override
@@ -43,18 +43,6 @@ public class VersionRepoitory extends Base<IVersion> {
         });
 
         return versionCode;
-
-
-/*        Response<VersionModel> version = null;
-        try {
-            version = iVersion.getVersionNumber().execute().body();
-            Log.d(VersionRepoitory.class.getName(), "getNumberVersionFromService: " + version);
-        } catch (NetworkOnMainThreadException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return version.toString();*/
 
     }
 

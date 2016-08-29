@@ -1,4 +1,4 @@
-package com.example.sarango.exampleespresso.repositorio;
+package com.example.sarango.exampleespresso.service;
 
 /**
  * Created by sarango on 29/08/2016.

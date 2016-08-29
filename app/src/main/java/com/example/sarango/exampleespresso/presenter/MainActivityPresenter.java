@@ -6,6 +6,7 @@ import com.example.sarango.exampleespresso.helpers.IValidatorInternet;
 import com.example.sarango.exampleespresso.helpers.ValidatorForFields;
 import com.example.sarango.exampleespresso.helpers.ValidatorInternet;
 import com.example.sarango.exampleespresso.model.Person;
+import com.example.sarango.exampleespresso.model.RepositoryError;
 import com.example.sarango.exampleespresso.repositorio.VersionRepoitory;
 import com.example.sarango.exampleespresso.view.interface_view.MainActivityView;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
+import retrofit2.Retrofit;
 
 /**
  * Created by sarango on 24/08/2016.
@@ -90,11 +92,7 @@ public class MainActivityPresenter {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String versionApi;
-                    versionRepoitory = new VersionRepoitory();
-                    versionApi = versionRepoitory.getNumberVersionFromService();
-                    mainActivityView.showApiVersion(versionApi);
-
+                    callService();
                 }
             });
 
@@ -104,5 +102,16 @@ public class MainActivityPresenter {
         }
 
 
+    }
+
+    private void callService() {
+        try {
+            String versionApi;
+            versionRepoitory = new VersionRepoitory();
+            versionApi = versionRepoitory.getNumberVersionFromService();
+            mainActivityView.showApiVersion(versionApi);
+        } catch (RepositoryError repositoryError) {
+            mainActivityView.showApiVersion("Error de repositorio" + repositoryError.getMessage());
+        }
     }
 }
